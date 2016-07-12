@@ -8,7 +8,7 @@ function Letter(word) {
 		}
 	};
 	this.print = function() {
-		console.log('Word: ' + this.positions.join(' '));
+		console.log('Word: ' + this.positions.join(' ') + '\n');
 	}
 }
 
