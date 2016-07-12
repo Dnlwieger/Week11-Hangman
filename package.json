@@ -1,0 +1,25 @@
+{
+  "name": "week11hangman",
+  "version": "1.0.0",
+  "description": "week 3 hangman redone with constructors and node",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattbajorek/Week11-Hangman.git"
+  },
+  "keywords": [
+    "hangman"
+  ],
+  "author": "Matt Bajorek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattbajorek/Week11-Hangman/issues"
+  },
+  "homepage": "https://github.com/mattbajorek/Week11-Hangman#readme",
+  "dependencies": {
+    "inquirer": "^1.1.2"
+  }
+}
