@@ -1,5 +1,6 @@
 var Hangman = {
 	print: function(guesses) {
+		console.log('Guesses left: ' + guesses);
 		console.log('  +----+');
 		console.log('  |/   |');
 		switch(guesses) {
@@ -41,7 +42,6 @@ var Hangman = {
 		}
 		Hangman.empty();
 		console.log('----------');
-		console.log('Guesses left: ' + guesses);
 	},
 	head: function() {
 		console.log('  |    O');
