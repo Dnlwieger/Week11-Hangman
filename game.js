@@ -5,7 +5,7 @@ var Game =  {
 	},
 	selectWord: function() {
 		var random = Game.random(0,Game.words.length-1);
-		return Game.words[random];
+		return Game.words[0];
 	}
 }
 

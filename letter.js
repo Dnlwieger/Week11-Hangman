@@ -1,14 +1,24 @@
+var chalk = require('chalk');
+
 function Letter(word) {
-	this.splitWord = word.split('');
-	console.log(this.splitWord);
 	this.positions = [];
+	this.wrong = [];
 	this.init = function() {
-		for (var i=0; i<this.splitWord.length; i++) {
+		for (var i=0; i<word.length; i++) {
 			this.positions.push('_');
 		}
 	};
 	this.print = function() {
-		console.log('Word: ' + this.positions.join(' ') + '\n');
+		console.log(chalk.bold.blue('Word: ' + this.positions.join(' ')));
+		console.log(chalk.bold.magenta('Wrong letters: ' + this.wrong.join(' ') + '\n'));
+	};
+	this.replace = function(change) {
+		for (var i=0; i<change.index.length; i++) {
+			this.positions[change.index[i]] = change.input;
+		}
+	};
+	this.incorrect = function(letter) {
+		this.wrong.push(letter);
 	}
 }
 

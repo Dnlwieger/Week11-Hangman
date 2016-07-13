@@ -1,8 +1,10 @@
+var chalk = require('chalk');
+
 var Hangman = {
 	print: function(guesses) {
-		console.log('Guesses left: ' + guesses);
-		console.log('  +----+');
-		console.log('  |/   |');
+		console.log(chalk.bold.red('Guesses left: ' + guesses));
+		console.log(chalk.bold.yellow('  +----+'));
+		console.log(chalk.bold.yellow('  |/   |'));
 		switch(guesses) {
 			case 6:
 				Hangman.empty();
@@ -41,28 +43,28 @@ var Hangman = {
 				break;
 		}
 		Hangman.empty();
-		console.log('----------');
+		console.log(chalk.bold.yellow('----------'));
 	},
 	head: function() {
-		console.log('  |    O');
+		console.log(chalk.bold.yellow('  |    O'));
 	},
 	rightArm: function() {
-		console.log('  |   \\O');
+		console.log(chalk.bold.yellow('  |   \\O'));
 	},
 	leftArm: function() {
-		console.log('  |   \\O/');
+		console.log(chalk.bold.yellow('  |   \\O/'));
 	},
 	body: function() {
-		console.log('  |    |');
+		console.log(chalk.bold.yellow('  |    |'));
 	},
 	rightLeg: function() {
-		console.log('  |   /');
+		console.log(chalk.bold.yellow('  |   /'));
 	},
 	leftLeg: function() {
-		console.log('  |   / \\');
+		console.log(chalk.bold.yellow('  |   / \\'));
 	},
 	empty: function() {
-		console.log('  |');
+		console.log(chalk.bold.yellow('  |'));
 	}
 };
 
