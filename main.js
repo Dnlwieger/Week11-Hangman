@@ -6,22 +6,19 @@ var hangman = require('./hangman');
 var inquirer = require('inquirer');
 var chalk = require('chalk');
 
+// Initialize variables to allow scope
+var wins = 0;
+var guesses;
+var splitWord;
+var Letter;
+var Word;
+var stop;
+
 // Show welcome and first hangman
 console.log(chalk.bold.green('\n+---------------------+\n| Welcome to Hangman! |\n+---------------------+\n'));
-var guesses = 6;
-hangman.print(guesses);
 
-// Select word and show blanks
-var splitWord = game.selectWord().split('');
-var Letter = new letter(splitWord);
-Letter.init();
-Letter.print();
-
-// Create word
-var Word = new word(splitWord);
-
-// Let user guess
-var question = [{
+// User guess letter question
+var questionLetter = [{
 	type: 'input',
 	name: 'input',
 	message: 'Please type a letter:',
@@ -29,15 +26,40 @@ var question = [{
     // Regex matching
 		var pass = value.match(/^[a-zA-Z]$/);
 		// Check if passing
-		if (pass) {
-			return true;
-		}
+		if (pass)	return true;
+		// Else reask for letter
 		return 'Please type a single valid letter:';
 	}
 }];
 
+// Continue question
+var questionContinue = [
+  {
+    type: 'confirm',
+    name: 'continue',
+    message: 'Would you like to continue?',
+    default: true
+  }
+];
+
+function start() {
+	// Initialize guesses
+	guesses = 6;
+	// Get word from game and split it into an array
+	splitWord = game.selectWord().split('');
+	// Create letter and word instances
+	Letter = new letter(splitWord);
+	Word = new word(splitWord);
+	// Print hangman and letters
+	hangman.print(wins,guesses);
+	Letter.init();
+	Letter.print();	
+	// Start asking first question
+	askQuestion();
+}
+
 function askQuestion() {
-	inquirer.prompt(question).then(function (answer) {
+	inquirer.prompt(questionLetter).then(function (answer) {
 		// Check user guess
 		var obj = {
 			positions: Letter.positions,
@@ -47,13 +69,15 @@ function askQuestion() {
 		// Get response back from word check
 		// If returned false
 		if (!Word.check(obj)) {
-			reshow(chalk.bold.red('You already guessed this letter!'));
+			reshow('red','You already guessed this letter!');
 		} else {
 			// If returned -1
 			if (Word.check(obj) === -1) {
 				Letter.incorrect(obj.input);
 				guesses--;
-				reshow(chalk.bold.red('Wrong letter! Keep trying!'));
+				// Check if user lost
+				if (guesses === 0) stop = 'lost';
+				reshow('red','Wrong letter! Keep trying!', stop);
 			} else {
 				// Tell letter what positions and value to replace
 				var change = {
@@ -61,19 +85,42 @@ function askQuestion() {
 					input: obj.input
 				}
 				Letter.replace(change);
-				reshow(chalk.bold.cyan('Great job! Keep it up!'));
+				// Check if user won
+				if (Letter.checkWin()) {
+					stop = 'win';
+					wins++;
+				}
+				reshow('cyan','Great job! Keep it up!', stop);
 			}			
 		}
 	});
 }
 
-function reshow(log) {
-	// Print hangman and letters
-	console.log('\n*****************************\n')
-	hangman.print(guesses);
-	Letter.print();
-	console.log(log);
-	askQuestion();
+function continueGame() {
+	inquirer.prompt(questionContinue).then(function (answer) {
+		if (answer.continue) {
+			console.log('\n*****************************\n');
+			start(); return;
+		} else {
+			return;
+		}
+	});
 }
 
-askQuestion();
+function reshow(color, log, stop) {
+	// Print hangman and letters
+	console.log('\n*****************************\n')
+	hangman.print(wins,guesses);
+	Letter.print();
+	if (stop !== undefined) {
+		var font = stop === 'lost' ? 'red' : 'cyan';
+		console.log(chalk.bold[font]('You ' + stop + '!'));
+		continueGame();
+	} else {
+		console.log(chalk.bold[color](log));
+		askQuestion();
+	}
+}
+
+// Initialize first time when starting script
+start();

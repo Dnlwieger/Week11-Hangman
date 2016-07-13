@@ -19,7 +19,13 @@ function Letter(word) {
 	};
 	this.incorrect = function(letter) {
 		this.wrong.push(letter);
-	}
+	};
+	this.checkWin = function() {
+		for (var i=0; i<this.positions.length; i++) {
+			if (this.positions[i] === '_') return false;
+		}
+		return true;
+	};
 }
 
 module.exports = Letter;

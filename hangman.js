@@ -1,7 +1,8 @@
 var chalk = require('chalk');
 
 var Hangman = {
-	print: function(guesses) {
+	print: function(wins,guesses) {
+		console.log(chalk.bold.green('Wins: ' + wins));
 		console.log(chalk.bold.red('Guesses left: ' + guesses));
 		console.log(chalk.bold.yellow('  +----+'));
 		console.log(chalk.bold.yellow('  |/   |'));
