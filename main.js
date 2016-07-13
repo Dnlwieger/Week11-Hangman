@@ -43,8 +43,9 @@ var questionContinue = [
 ];
 
 function start() {
-	// Initialize guesses
+	// Initialize guesses and stop
 	guesses = 6;
+	stop = undefined;
 	// Get word from game and split it into an array
 	splitWord = game.selectWord().split('');
 	// Create letter and word instances
