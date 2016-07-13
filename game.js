@@ -1,5 +1,5 @@
 var Game =  {
-	words: ["SPONGEBOB","PATRICK","SANDY","SQUIDWARD","GARY","PLANKTON"],
+	words: ["SPONGEBOB","PATRICK","SANDY","SQUIDWARD","GARY","PLANKTON","PEARL","KAREN","LARRY","PATCHY"],
 	random: function (min, max) {
 	  return Math.floor(Math.random() * (max - min + 1)) + min;
 	},
